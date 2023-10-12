@@ -55,9 +55,16 @@ class TimeSelector(ttk.Button):
                     app.label.update()
                     time.sleep(1)
                 else:
+                    app.state("zoomed")
                     app.stop_check.set(False)
-                    winsound.Beep(470,700)
+                    winsound.PlaySound("SystemAsterisk", winsound.SND_ALIAS)
+                    time.sleep(1)
+                    winsound.PlaySound("SystemAsterisk", winsound.SND_ALIAS)
+                    time.sleep(1)
+                    winsound.PlaySound("SystemAsterisk", winsound.SND_ALIAS)
+                    time.sleep(1)
             app.Time.set("Выберете время")
+            app.stop_timer()
 
         app.stop_timer()
         app.time_button_1["state"] = DISABLED
@@ -70,7 +77,7 @@ class TimeSelector(ttk.Button):
         except IndexError:
             pass
 
-        t = threading.Thread(target=main)
+        t = threading.Thread(target=main, daemon=True)
         t.start()
         threads.append(t)
 
